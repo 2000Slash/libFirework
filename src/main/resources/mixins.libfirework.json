@@ -1,0 +1,13 @@
+{
+  "required": true,
+  "package": "com.github.libfirework.mixins",
+  "client": [
+    "FireworksSparkParticleMixin",
+    "FireworkStarItemMixin",
+    "FireworkSparkParticleAccessor",
+    "ParticleAccessor"
+  ],
+  "mixins": [
+    "FireworkStarRecipeMixin"
+  ]
+}

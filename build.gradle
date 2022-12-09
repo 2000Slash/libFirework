@@ -1,0 +1,36 @@
+plugins {
+    id "fabric-loom" version "1.0.12"
+}
+
+repositories {
+    maven {
+        url "https://maven.terraformersmc.com/releases/"
+    }
+}
+
+
+dependencies {
+    minecraft "org.mojang:minecraft:1.19.3"
+    mappings "net.fabricmc:yarn:1.19.3+build.2"
+    //mappings loom.officialMojangMappings()
+    modImplementation "net.fabricmc:fabric-loader:0.14.11"
+    modImplementation "net.fabricmc.fabric-api:fabric-api:0.68.1+1.19.3"
+
+    modImplementation "com.terraformersmc:modmenu:5.0.1"
+}
+
+
+
+loom {
+    accessWidenerPath = file("src/main/resources/libfirework.accesswidener")
+    /*
+    splitEnvironmentSourceSets()
+
+    mods {
+        modid {
+            sourceSet sourceSets.main
+            sourceSet sourceSets.client
+        }
+    }
+    */
+}
