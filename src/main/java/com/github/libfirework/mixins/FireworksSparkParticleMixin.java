@@ -33,7 +33,8 @@ public class FireworksSparkParticleMixin {
 
         int j = accessor.getAge() / 2;
         NbtCompound nbtCompound2 = accessor.getExplosions().getCompound(j);
-        Optional<CustomRocketType> rocketTypeOptional = LibFirework.rocketTypeById(nbtCompound2.getByte("Type"));
+        int rocketId = nbtCompound2.getByte("Type");
+        Optional<CustomRocketType> rocketTypeOptional = LibFirework.rocketTypeById(rocketId);
         CustomRocketType rocketType = rocketTypeOptional.orElse(MinecraftRocketTypes.SmallRocketType);
         boolean trail = nbtCompound2.getBoolean("Trail");
         boolean flicker = nbtCompound2.getBoolean("Flicker");
@@ -42,9 +43,9 @@ public class FireworksSparkParticleMixin {
         if (colors.length == 0) {
             colors = new int[]{DyeColor.BLACK.getFireworkColor()};
         }
-        LibFirework.LOGGER.info("Found rocket type " + rocketType.getId() + " " + rocketType);
+        LibFirework.LOGGER.info("Found rocket type " + rocketId + " " + rocketType);
 
-        if (rocketType.getId() == 0 || rocketType.getId() == 1) {
+        if (rocketId == 0 || rocketId == 1) {
             return;
         } else {
             rocketType.explode(particleAccessor.getX(), particleAccessor.getY(), particleAccessor.getZ(), colors, fadeColors, trail, flicker, particleManager);

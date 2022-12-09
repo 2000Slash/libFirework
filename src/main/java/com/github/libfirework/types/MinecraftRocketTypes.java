@@ -18,8 +18,8 @@ public class MinecraftRocketTypes {
     public static final CustomRocketType BurstRocketType;
 
     private static class EmptyRocketType extends ICustomRocketType {
-        public EmptyRocketType(String name, int id, Item... items) {
-            super(name, id, items);
+        public EmptyRocketType(String name, Item... items) {
+            super(name, items);
         }
 
         /**
@@ -30,10 +30,10 @@ public class MinecraftRocketTypes {
     }
 
     static {
-        SmallRocketType = new EmptyRocketType("small_ball", 0);
-        LargeRocketType = new EmptyRocketType("large_ball", 1, Items.FIRE_CHARGE);
-        StarRocketType = new EmptyRocketType("star", 2, Items.GOLD_NUGGET);
-        CreeperRocketType = new EmptyRocketType("creeper", 3, Items.SKELETON_SKULL, Items.WITHER_SKELETON_SKULL, Items.CREEPER_HEAD, Items.PLAYER_HEAD, Items.DRAGON_HEAD, Items.ZOMBIE_HEAD, Items.PIGLIN_HEAD);
-        BurstRocketType = new EmptyRocketType("burst", 4, Items.FEATHER);
+        SmallRocketType = new EmptyRocketType("small_ball");
+        LargeRocketType = new EmptyRocketType("large_ball", Items.FIRE_CHARGE);
+        StarRocketType = new EmptyRocketType("star", Items.GOLD_NUGGET);
+        CreeperRocketType = new EmptyRocketType("creeper", Items.SKELETON_SKULL, Items.WITHER_SKELETON_SKULL, Items.CREEPER_HEAD, Items.PLAYER_HEAD, Items.DRAGON_HEAD, Items.ZOMBIE_HEAD, Items.PIGLIN_HEAD);
+        BurstRocketType = new EmptyRocketType("burst", Items.FEATHER);
     }
 }

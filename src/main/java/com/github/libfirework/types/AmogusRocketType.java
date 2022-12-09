@@ -6,7 +6,7 @@ import net.minecraft.item.Items;
 public class AmogusRocketType extends ICustomRocketType {
 
     public AmogusRocketType() {
-        super("amogus", 5, Items.NETHERITE_INGOT);
+        super("amogus", Items.NETHERITE_INGOT);
     }
 
     @Override

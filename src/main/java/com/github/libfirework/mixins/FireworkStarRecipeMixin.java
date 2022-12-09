@@ -9,6 +9,7 @@ import net.minecraft.item.*;
 import net.minecraft.nbt.NbtCompound;
 import net.minecraft.recipe.FireworkStarRecipe;
 import net.minecraft.recipe.Ingredient;
+import net.minecraft.util.Pair;
 import net.minecraft.world.World;
 import org.spongepowered.asm.mixin.Final;
 import org.spongepowered.asm.mixin.Mixin;
@@ -48,14 +49,15 @@ public class FireworkStarRecipeMixin {
     void craft(CraftingInventory craftingInventory, CallbackInfoReturnable<ItemStack> ci) {
         ItemStack itemStack = new ItemStack(Items.FIREWORK_STAR);
         NbtCompound nbtCompound = itemStack.getOrCreateSubNbt("Explosion");
-        CustomRocketType type = MinecraftRocketTypes.SmallRocketType;
+        int typeId = 0;
         List<Integer> list = Lists.newArrayList();
 
         for(int i = 0; i < craftingInventory.size(); ++i) {
             ItemStack itemStack2 = craftingInventory.getStack(i);
             if (!itemStack2.isEmpty()) {
                 if (LibFirework.getIngredients().test(itemStack2)) {
-                    type = (CustomRocketType) LibFirework.getRecipeMap().get(itemStack2.getItem());
+                    Pair<CustomRocketType, Integer> customRocketType = LibFirework.getRecipeMap().get(itemStack2.getItem());
+                    typeId = customRocketType.getRight();
                 } else if (FLICKER_MODIFIER.test(itemStack2)) {
                     nbtCompound.putBoolean("Flicker", true);
                 } else if (TRAIL_MODIFIER.test(itemStack2)) {
@@ -67,7 +69,7 @@ public class FireworkStarRecipeMixin {
         }
 
         nbtCompound.putIntArray("Colors", list);
-        nbtCompound.putByte("Type", (byte)type.getId());
+        nbtCompound.putByte("Type", (byte)typeId);
         ci.setReturnValue(itemStack);
     }
 

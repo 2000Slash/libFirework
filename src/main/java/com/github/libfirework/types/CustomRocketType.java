@@ -6,7 +6,6 @@ import net.minecraft.item.Item;
 import java.util.List;
 
 public interface CustomRocketType {
-    public int getId();
     public String getName();
 
     public List<Item> getRecipeItem();

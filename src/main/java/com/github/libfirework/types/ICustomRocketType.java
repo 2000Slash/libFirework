@@ -13,21 +13,18 @@ import java.util.List;
  */
 public abstract class ICustomRocketType implements CustomRocketType {
     private String name;
-    private int id;
     private List<Item> items;
 
     protected final Random random = Random.create();
 
 
-    public ICustomRocketType(String name, int id, Item... items) {
-        this.name = name;
-        this.id = id;
-        this.items = List.of(items);
+    public ICustomRocketType(String name, Item... items) {
+        this(name, List.of(items));
     }
 
-    @Override
-    public int getId() {
-        return id;
+    public ICustomRocketType(String name, List<Item> items) {
+        this.name = name;
+        this.items = items;
     }
 
     @Override
