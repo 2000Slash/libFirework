@@ -1,10 +1,12 @@
 package com.github.libfirework;
 
+import com.github.libfirework.types.AmogusRocketType;
+import com.github.libfirework.types.CustomRocketType;
+import com.github.libfirework.types.MinecraftRocketTypes;
 import com.google.common.collect.Maps;
 import net.fabricmc.api.ModInitializer;
 import net.minecraft.item.Item;
 import net.minecraft.item.ItemConvertible;
-import net.minecraft.item.Items;
 import net.minecraft.recipe.Ingredient;
 import net.minecraft.util.Util;
 import org.slf4j.Logger;

@@ -1,8 +1,8 @@
 package com.github.libfirework.mixins;
 
-import com.github.libfirework.CustomRocketType;
+import com.github.libfirework.types.CustomRocketType;
 import com.github.libfirework.LibFirework;
-import com.github.libfirework.MinecraftRocketTypes;
+import com.github.libfirework.types.MinecraftRocketTypes;
 import com.google.common.collect.Lists;
 import net.minecraft.inventory.CraftingInventory;
 import net.minecraft.item.*;

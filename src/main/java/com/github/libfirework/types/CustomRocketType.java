@@ -1,4 +1,4 @@
-package com.github.libfirework;
+package com.github.libfirework.types;
 
 import net.minecraft.client.particle.ParticleManager;
 import net.minecraft.item.Item;
