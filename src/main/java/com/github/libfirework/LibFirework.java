@@ -1,12 +1,13 @@
 package com.github.libfirework;
 
-import com.github.libfirework.types.AmogusRocketType;
 import com.github.libfirework.types.CustomRocketType;
 import com.github.libfirework.types.MinecraftRocketTypes;
+import com.github.libfirework.types.simple.CustomRocketTypeBuilder;
 import com.google.common.collect.Maps;
 import net.fabricmc.api.ModInitializer;
 import net.minecraft.item.Item;
 import net.minecraft.item.ItemConvertible;
+import net.minecraft.item.Items;
 import net.minecraft.recipe.Ingredient;
 import net.minecraft.util.Pair;
 import net.minecraft.util.Util;
@@ -28,7 +29,7 @@ public class LibFirework implements ModInitializer {
         rocketTypes.put(3, MinecraftRocketTypes.CreeperRocketType);
         rocketTypes.put(4, MinecraftRocketTypes.BurstRocketType);
 
-        registerCustomRocketType(new AmogusRocketType());
+        registerCustomRocketType(new CustomRocketTypeBuilder("amogus", Items.NETHERITE_INGOT).drawLines(new double[][]{{0.0, 1.0}, {1.0, 0.0}, {-1.0, 0.0}, {0.0, 1.0}}, 50).build());
     }
 
     public static Map<Integer, CustomRocketType> getRocketTypes() {

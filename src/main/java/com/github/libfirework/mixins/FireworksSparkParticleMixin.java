@@ -24,7 +24,6 @@ public class FireworksSparkParticleMixin {
 
     @Inject(at = @At("HEAD"), method = "explodeBall", cancellable = true)
     private void injectExplodeBall(double d, int i, int[] is, int[] js, boolean bl, boolean bl2, CallbackInfo callBackInfo) {
-        LibFirework.LOGGER.info("Inject entry");
         FireworksSparkParticle.FireworkParticle thiz = (FireworksSparkParticle.FireworkParticle)(Object)this;
         Particle thisParticle = thiz;
 
@@ -43,7 +42,6 @@ public class FireworksSparkParticleMixin {
         if (colors.length == 0) {
             colors = new int[]{DyeColor.BLACK.getFireworkColor()};
         }
-        LibFirework.LOGGER.info("Found rocket type " + rocketId + " " + rocketType);
 
         if (rocketId == 0 || rocketId == 1) {
             return;
