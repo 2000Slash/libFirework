@@ -2,6 +2,7 @@
   "schemaVersion": 1,
   "id": "libfirework",
   "description": "A library for creating custom fireworks in Minecraft",
+  "name": "Libfirework",
   "version": "1.0.0",
   "icon": "assets/libfirework/icon.png",
   "authors": [

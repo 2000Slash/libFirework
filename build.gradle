@@ -23,14 +23,11 @@ dependencies {
 
 loom {
     accessWidenerPath = file("src/main/resources/libfirework.accesswidener")
-    /*
-    splitEnvironmentSourceSets()
-
-    mods {
-        modid {
-            sourceSet sourceSets.main
-            sourceSet sourceSets.client
+    runs {
+        testClient {
+            inherit client
+            configName = "Test Minecraft Client"
+            source = sourceSets.test
         }
     }
-    */
 }

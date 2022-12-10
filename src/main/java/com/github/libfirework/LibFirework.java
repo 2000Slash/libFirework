@@ -28,15 +28,13 @@ public class LibFirework implements ModInitializer {
         rocketTypes.put(2, MinecraftRocketTypes.StarRocketType);
         rocketTypes.put(3, MinecraftRocketTypes.CreeperRocketType);
         rocketTypes.put(4, MinecraftRocketTypes.BurstRocketType);
-
-        registerCustomRocketType(new CustomRocketTypeBuilder("amogus", Items.NETHERITE_INGOT).drawLines(new double[][]{{0.0, 1.0}, {1.0, 0.0}, {-1.0, 0.0}, {0.0, 1.0}}, 50).build());
     }
 
     public static Map<Integer, CustomRocketType> getRocketTypes() {
         return rocketTypes;
     }
 
-    public void registerCustomRocketType(CustomRocketType customRocketType) {
+    public static void registerCustomRocketType(CustomRocketType customRocketType) {
         rocketTypes.put(nextId, customRocketType);
         nextId++;
     }
