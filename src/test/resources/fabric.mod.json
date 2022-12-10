@@ -1,7 +1,7 @@
 {
   "schemaVersion": 1,
   "id": "testlibfirework",
-  "description": "A Minecraft mod that adds a triangle firework",
+  "description": "A Minecraft mod that adds multiple fireworks",
   "name": "Libfirework Test",
   "version": "1.0.0",
   "icon": "assets/testlibfirework/icon.png",

@@ -8,6 +8,7 @@ import net.minecraft.client.particle.Particle;
 import net.minecraft.client.particle.ParticleManager;
 import net.minecraft.nbt.NbtCompound;
 import net.minecraft.util.DyeColor;
+import net.minecraft.util.math.Vec3d;
 import org.spongepowered.asm.mixin.Final;
 import org.spongepowered.asm.mixin.Mixin;
 import org.spongepowered.asm.mixin.Shadow;
@@ -46,7 +47,9 @@ public class FireworksSparkParticleMixin {
         if (rocketId == 0 || rocketId == 1) {
             return;
         } else {
-            rocketType.explode(particleAccessor.getX(), particleAccessor.getY(), particleAccessor.getZ(), colors, fadeColors, trail, flicker, particleManager);
+            var coords = new Vec3d(particleAccessor.getX(), particleAccessor.getY(), particleAccessor.getZ());
+            var velocity = new Vec3d(particleAccessor.getVelocityX(), particleAccessor.getVelocityY(), particleAccessor.getVelocityZ());
+            rocketType.explode(velocity, coords, colors, fadeColors, trail, flicker, particleManager);
             callBackInfo.cancel();
         }
     }

@@ -2,6 +2,7 @@ package com.github.libfirework.types;
 
 import net.minecraft.client.particle.ParticleManager;
 import net.minecraft.item.Item;
+import net.minecraft.util.math.Vec3d;
 
 import java.util.List;
 
@@ -18,5 +19,5 @@ public interface CustomRocketType {
      * @param flicker
      * @param particleManager
      */
-    public void explode(double x, double y, double z, int[] colors, int[] fadeColors, boolean trail, boolean flicker, ParticleManager particleManager);
+    public void explode(Vec3d velocity, Vec3d coords, int[] colors, int[] fadeColors, boolean trail, boolean flicker, ParticleManager particleManager);
 }

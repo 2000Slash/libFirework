@@ -4,6 +4,7 @@ import com.github.libfirework.types.CustomRocketType;
 import com.github.libfirework.types.ICustomRocketType;
 import net.minecraft.client.particle.ParticleManager;
 import net.minecraft.item.Item;
+import net.minecraft.util.math.Vec3d;
 
 import java.util.LinkedList;
 import java.util.List;
@@ -11,17 +12,17 @@ import java.util.List;
 public class CustomRocketTypeBuilder {
 
     private static class SimpleRocketType extends ICustomRocketType {
-        private final List<DrawAction> drawActions;
+        private final List<FireworkEffect> fireworkEffects;
 
         private SimpleRocketType(CustomRocketTypeBuilder builder) {
             super(builder.getName(), builder.getItems());
-            this.drawActions = builder.getDrawActions();
+            this.fireworkEffects = builder.getDrawActions();
         }
 
         @Override
-        public void explode(double x, double y, double z, int[] colors, int[] fadeColors, boolean trail, boolean flicker, ParticleManager particleManager) {
-            for (var drawAction : drawActions) {
-                drawAction.draw(x, y, z, colors, fadeColors, trail, flicker, particleManager);
+        public void explode(Vec3d velocity, Vec3d coords, int[] colors, int[] fadeColors, boolean trail, boolean flicker, ParticleManager particleManager) {
+            for (var drawAction : fireworkEffects) {
+                drawAction.explode(velocity, coords, colors, fadeColors, trail, flicker, particleManager);
             }
         }
 
@@ -30,7 +31,7 @@ public class CustomRocketTypeBuilder {
 
     private String name;
     private List<Item> items;
-    private final List<DrawAction> drawActions = new LinkedList<>();
+    private final List<FireworkEffect> fireworkEffects = new LinkedList<>();
 
 
     public CustomRocketTypeBuilder(String name, Item... items) {
@@ -57,13 +58,35 @@ public class CustomRocketTypeBuilder {
         return this;
     }
 
-    public CustomRocketTypeBuilder applyDrawAction(DrawAction drawAction) {
-        this.drawActions.add(drawAction);
+    public CustomRocketTypeBuilder applyDrawAction(FireworkEffect fireworkEffect) {
+        this.fireworkEffects.add(fireworkEffect);
         return this;
     }
 
+    /**
+     * Create multiple lines of particles with numberOfIntersects particles between each line
+     * @param coords The coords in the shape [ [Coord1X, Coord1Y], [Coord2X, Coord2Y]  ]
+     * @param numberOfIntersects The number of particles in each line
+     */
     public CustomRocketTypeBuilder drawLines(double[][] coords, int numberOfIntersects) {
-        var drawAction = new DrawLinesAction(coords, numberOfIntersects);
+        var drawAction = new FireworkEffects.LinesFireworkEffect(coords, numberOfIntersects);
+        return applyDrawAction(drawAction);
+    }
+
+    /**
+     * Create a ball of particles with the radius randius. You can further change the length with spread.
+     * The particles first all spawn at the rocket explosion. Then they all move radius*spread units away from the explosion
+     * @param radius The radius the particles move to
+     * @param spread The multiplier of the radius
+     * @return
+     */
+    public CustomRocketTypeBuilder fillBall(int radius, double spread) {
+        var drawAction = new FireworkEffects.BallFireworkEffect(radius, spread);
+        return applyDrawAction(drawAction);
+    }
+
+    public CustomRocketTypeBuilder burst() {
+        var drawAction = new FireworkEffects.BurstFireworkEffect();
         return applyDrawAction(drawAction);
     }
 
@@ -79,7 +102,7 @@ public class CustomRocketTypeBuilder {
         return new SimpleRocketType(this);
     }
 
-    public List<DrawAction> getDrawActions() {
-        return drawActions;
+    public List<FireworkEffect> getDrawActions() {
+        return fireworkEffects;
     }
 }

@@ -6,6 +6,7 @@ import net.minecraft.client.particle.FireworksSparkParticle;
 import net.minecraft.client.particle.ParticleManager;
 import net.minecraft.item.Item;
 import net.minecraft.item.Items;
+import net.minecraft.util.math.Vec3d;
 
 /**
  * The Minecraft default rocket types
@@ -26,7 +27,7 @@ public class MinecraftRocketTypes {
          * Minecrafts default explosions are hardcoded here {@link FireworksSparkParticle.FireworkParticle#tick()}
          */
         @Override
-        public void explode(double x, double y, double z, int[] colors, int[] fadeColors, boolean trail, boolean flicker, ParticleManager particleManager) { }
+        public void explode(Vec3d velocity, Vec3d coords, int[] colors, int[] fadeColors, boolean trail, boolean flicker, ParticleManager particleManager) { }
     }
 
     static {

@@ -1,3 +1,5 @@
 {
-  "item.minecraft.firework_star.shape.triangle": "Cool"
+  "item.minecraft.firework_star.shape.triangle": "Triangle",
+  "item.minecraft.firework_star.shape.cool_ball": "Ballz",
+  "item.minecraft.firework_star.shape.cool_burst": "Burn Baby Burn"
 }
