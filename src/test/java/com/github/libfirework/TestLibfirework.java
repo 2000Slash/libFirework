@@ -12,5 +12,6 @@ public class TestLibfirework implements ModInitializer {
         LibFirework.registerCustomRocketType(new CustomRocketTypeBuilder(new Identifier("libfirework", "triangle"), Items.NETHERITE_INGOT).drawLines(new double[][]{{0.0, 1.0}, {1.0, 0.0}, {-1.0, 0.0}, {0.0, 1.0}}, 50).build());
         LibFirework.registerCustomRocketType(new CustomRocketTypeBuilder(new Identifier("libfirework", "ball"), Items.SNOWBALL).fillBall(5, 1).build());
         LibFirework.registerCustomRocketType(new CustomRocketTypeBuilder(new Identifier("libfirework", "burst"), Items.FIRE_CHARGE).burst(100).build());
+        LibFirework.registerCustomRocketType(new CustomRocketTypeBuilder(new Identifier("libfirework", "amogus"), Items.REDSTONE).explodeSvg(TestLibfirework.class.getClassLoader().getResourceAsStream("amogus.svg"), "amogus.svg", 5.f, 1/500.f, new float[]{-0.8f, 1.f}).build());
     }
 }

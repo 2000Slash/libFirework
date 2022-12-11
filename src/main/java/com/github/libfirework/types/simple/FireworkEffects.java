@@ -1,6 +1,10 @@
 package com.github.libfirework.types.simple;
 
+import com.github.libfirework.LibFirework;
 import com.github.libfirework.mixins.ParticleAccessor;
+import com.kitfox.svg.Path;
+import com.kitfox.svg.SVGCache;
+import com.kitfox.svg.SVGDiagram;
 import net.minecraft.client.particle.FireworksSparkParticle;
 import net.minecraft.client.particle.ParticleManager;
 import net.minecraft.particle.ParticleTypes;
@@ -8,6 +12,14 @@ import net.minecraft.util.Util;
 import net.minecraft.util.math.MathHelper;
 import net.minecraft.util.math.Vec3d;
 import net.minecraft.util.math.random.Random;
+
+import java.awt.*;
+import java.awt.geom.PathIterator;
+import java.io.IOException;
+import java.io.InputStream;
+import java.net.URI;
+import java.util.ArrayList;
+import java.util.List;
 
 public class FireworkEffects {
 
@@ -106,6 +118,47 @@ public class FireworkEffects {
                 double z = velocity.z * 0.5 + this.random.nextGaussian() * 0.15 + offsetY;
                 double y = velocity.y * 0.5 + this.random.nextDouble() * 0.5;
                 this.addExplosionParticle(coords, x, y, z, colors, fadeColors, trail, flicker, particleManager);
+            }
+        }
+    }
+
+    public static class SVGFireworkEffect extends BaseFireworkEffect {
+        private List<Double[]> points;
+        private float[] origin;
+
+        public SVGFireworkEffect(InputStream inputStream, String name, float pointDistance, double scale, float[] origin) {
+            this.origin = origin;
+            try {
+                points = new ArrayList<>();
+                URI uri = SVGCache.getSVGUniverse().loadSVG(inputStream, name);
+                SVGDiagram diagram = SVGCache.getSVGUniverse().getDiagram(uri);
+                for (var child : diagram.getRoot().getChildren(null)) {
+                    Path childPath = (Path) child;
+                    Shape shape = childPath.getShape();
+                    PathIterator pathIterator = shape.getPathIterator(null, pointDistance);
+                    double[] coords = new double[2];
+                    while (!pathIterator.isDone()) {
+                        pathIterator.currentSegment(coords);
+                        points.add(new Double[]{coords[0]*scale, -coords[1]*scale});
+                        pathIterator.next();
+                    }
+                }
+            } catch (IOException e) {
+                LibFirework.LOGGER.error("Could not load inputStream");
+            }
+        }
+
+        @Override
+        public void explode(Vec3d velocity, Vec3d coords, int[] colors, int[] fadeColors, boolean trail, boolean flicker, ParticleManager particleManager) {
+            // Random rotation for each launch
+            float rotation = random.nextFloat() * (float)Math.PI;
+
+            for (var point: points) {
+                double particleX = point[0]+origin[0];
+                double particleY = point[1]+origin[1];
+                double particleZ = particleX * Math.sin(rotation);
+                particleX *= Math.cos(rotation);
+                addExplosionParticle(coords, particleX, particleY, particleZ, colors, fadeColors, trail, flicker, particleManager);
             }
         }
     }

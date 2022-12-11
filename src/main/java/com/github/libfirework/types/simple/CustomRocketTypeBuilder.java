@@ -7,6 +7,7 @@ import net.minecraft.item.Item;
 import net.minecraft.util.Identifier;
 import net.minecraft.util.math.Vec3d;
 
+import java.io.InputStream;
 import java.util.LinkedList;
 import java.util.List;
 
@@ -79,15 +80,31 @@ public class CustomRocketTypeBuilder {
      * The particles first all spawn at the rocket explosion. Then they all move radius*spread units away from the explosion
      * @param radius The radius the particles move to
      * @param spread The multiplier of the radius
-     * @return
      */
     public CustomRocketTypeBuilder fillBall(int radius, double spread) {
         var drawAction = new FireworkEffects.BallFireworkEffect(radius, spread);
         return applyDrawAction(drawAction);
     }
 
+    /**
+     * Create a burst of particles. They will fly in the same direction as the rocket
+     * @param numberOfExplosions The amount of particles
+     */
     public CustomRocketTypeBuilder burst(int numberOfExplosions) {
         var drawAction = new FireworkEffects.BurstFireworkEffect(numberOfExplosions);
+        return applyDrawAction(drawAction);
+    }
+
+    /**
+     * Draws a svg path. The input stream should be an svg file with a path as the only child of the root.
+     * @param inputStream The svg file
+     * @param name The name of the file
+     * @param pointDistance The distance between two points. Higher value => less particles. This should be experimented with for each svg
+     * @param scale The scale of the svg. This should be experimented with for each svg
+     * @param origin The origin offset of the svg. This should be experimented with for each svg. Origin is in the form [x_offset, y_offset]
+     */
+    public CustomRocketTypeBuilder explodeSvg(InputStream inputStream, String name, float pointDistance, double scale, float[] origin) {
+        var drawAction = new FireworkEffects.SVGFireworkEffect(inputStream, name, pointDistance, scale, origin);
         return applyDrawAction(drawAction);
     }
 
