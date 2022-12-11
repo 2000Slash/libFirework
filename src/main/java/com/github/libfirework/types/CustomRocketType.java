@@ -2,12 +2,13 @@ package com.github.libfirework.types;
 
 import net.minecraft.client.particle.ParticleManager;
 import net.minecraft.item.Item;
+import net.minecraft.util.Identifier;
 import net.minecraft.util.math.Vec3d;
 
 import java.util.List;
 
 public interface CustomRocketType {
-    public String getName();
+    public Identifier getIdentifier();
 
     public List<Item> getRecipeItem();
 

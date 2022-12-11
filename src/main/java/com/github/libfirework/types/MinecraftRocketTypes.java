@@ -6,6 +6,7 @@ import net.minecraft.client.particle.FireworksSparkParticle;
 import net.minecraft.client.particle.ParticleManager;
 import net.minecraft.item.Item;
 import net.minecraft.item.Items;
+import net.minecraft.util.Identifier;
 import net.minecraft.util.math.Vec3d;
 
 /**
@@ -19,8 +20,8 @@ public class MinecraftRocketTypes {
     public static final CustomRocketType BurstRocketType;
 
     private static class EmptyRocketType extends ICustomRocketType {
-        public EmptyRocketType(String name, Item... items) {
-            super(name, items);
+        public EmptyRocketType(Identifier identifier, Item... items) {
+            super(identifier, items);
         }
 
         /**
@@ -31,10 +32,10 @@ public class MinecraftRocketTypes {
     }
 
     static {
-        SmallRocketType = new EmptyRocketType("small_ball");
-        LargeRocketType = new EmptyRocketType("large_ball", Items.FIRE_CHARGE);
-        StarRocketType = new EmptyRocketType("star", Items.GOLD_NUGGET);
-        CreeperRocketType = new EmptyRocketType("creeper", Items.SKELETON_SKULL, Items.WITHER_SKELETON_SKULL, Items.CREEPER_HEAD, Items.PLAYER_HEAD, Items.DRAGON_HEAD, Items.ZOMBIE_HEAD, Items.PIGLIN_HEAD);
-        BurstRocketType = new EmptyRocketType("burst", Items.FEATHER);
+        SmallRocketType = new EmptyRocketType(new Identifier("small_ball"));
+        LargeRocketType = new EmptyRocketType(new Identifier("large_ball"), Items.FIRE_CHARGE);
+        StarRocketType = new EmptyRocketType(new Identifier("star"), Items.GOLD_NUGGET);
+        CreeperRocketType = new EmptyRocketType(new Identifier("creeper"), Items.SKELETON_SKULL, Items.WITHER_SKELETON_SKULL, Items.CREEPER_HEAD, Items.PLAYER_HEAD, Items.DRAGON_HEAD, Items.ZOMBIE_HEAD, Items.PIGLIN_HEAD);
+        BurstRocketType = new EmptyRocketType(new Identifier("burst"), Items.FEATHER);
     }
 }

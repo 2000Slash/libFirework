@@ -3,6 +3,7 @@ package com.github.libfirework.mixins;
 import com.github.libfirework.types.CustomRocketType;
 import com.github.libfirework.LibFirework;
 import com.github.libfirework.types.MinecraftRocketTypes;
+import net.minecraft.item.FireworkRocketItem;
 import net.minecraft.item.FireworkStarItem;
 import net.minecraft.nbt.NbtCompound;
 import net.minecraft.text.MutableText;
@@ -23,7 +24,7 @@ public class FireworkStarItemMixin {
     private static void appendFireworkTooltipMixin(NbtCompound nbtCompound, List<Text> list, CallbackInfo ci) {
         Optional<CustomRocketType> rocketTypeOptional = LibFirework.rocketTypeById(nbtCompound.getByte("Type"));
         CustomRocketType rocketType = rocketTypeOptional.orElse(MinecraftRocketTypes.StarRocketType);
-        list.add(Text.translatable("item.minecraft.firework_star.shape." + rocketType.getName()).formatted(Formatting.GRAY));
+        list.add(Text.translatable("item." + rocketType.getIdentifier().getNamespace() + ".firework_star.shape." + rocketType.getIdentifier().getPath()).formatted(Formatting.GRAY));
         int[] is = nbtCompound.getIntArray("Colors");
         if (is.length > 0) {
             list.add(appendColors(Text.empty().formatted(Formatting.GRAY), is));

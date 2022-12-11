@@ -4,6 +4,7 @@ import com.github.libfirework.types.CustomRocketType;
 import com.github.libfirework.types.ICustomRocketType;
 import net.minecraft.client.particle.ParticleManager;
 import net.minecraft.item.Item;
+import net.minecraft.util.Identifier;
 import net.minecraft.util.math.Vec3d;
 
 import java.util.LinkedList;
@@ -15,7 +16,7 @@ public class CustomRocketTypeBuilder {
         private final List<FireworkEffect> fireworkEffects;
 
         private SimpleRocketType(CustomRocketTypeBuilder builder) {
-            super(builder.getName(), builder.getItems());
+            super(builder.getIdentifier(), builder.getItems());
             this.fireworkEffects = builder.getDrawActions();
         }
 
@@ -29,13 +30,13 @@ public class CustomRocketTypeBuilder {
     }
 
 
-    private String name;
+    private Identifier identifier;
     private List<Item> items;
     private final List<FireworkEffect> fireworkEffects = new LinkedList<>();
 
 
-    public CustomRocketTypeBuilder(String name, Item... items) {
-        this.name = name;
+    public CustomRocketTypeBuilder(Identifier identifier, Item... items) {
+        this.identifier = identifier;
         this.items = List.of(items);
     }
 
@@ -44,8 +45,8 @@ public class CustomRocketTypeBuilder {
         return this;
     }
 
-    public void setName(String name) {
-        this.name = name;
+    public void setIdentifier(Identifier identifier) {
+        this.identifier = identifier;
     }
 
     public CustomRocketTypeBuilder addItem(Item item) {
@@ -85,8 +86,8 @@ public class CustomRocketTypeBuilder {
         return applyDrawAction(drawAction);
     }
 
-    public CustomRocketTypeBuilder burst() {
-        var drawAction = new FireworkEffects.BurstFireworkEffect();
+    public CustomRocketTypeBuilder burst(int numberOfExplosions) {
+        var drawAction = new FireworkEffects.BurstFireworkEffect(numberOfExplosions);
         return applyDrawAction(drawAction);
     }
 
@@ -94,8 +95,8 @@ public class CustomRocketTypeBuilder {
         return items;
     }
 
-    public String getName() {
-        return name;
+    public Identifier getIdentifier() {
+        return identifier;
     }
 
     public CustomRocketType build() {

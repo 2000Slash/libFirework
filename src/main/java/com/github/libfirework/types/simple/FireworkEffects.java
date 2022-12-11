@@ -80,7 +80,7 @@ public class FireworkEffects {
                         double rOffsetX = offsetX + (this.random.nextDouble() - this.random.nextDouble()) * 0.5;
                         double rOffsetY = offsetY + (this.random.nextDouble() - this.random.nextDouble()) * 0.5;
                         double rOffsetZ = offsetZ + (this.random.nextDouble() - this.random.nextDouble()) * 0.5;
-                        double length = Math.sqrt(rOffsetX * rOffsetX + rOffsetY * rOffsetY + rOffsetZ * rOffsetZ) / 0.1 + this.random.nextGaussian() * 0.05;
+                        double length = Math.sqrt(rOffsetX * rOffsetX + rOffsetY * rOffsetY + rOffsetZ * rOffsetZ) / spread + this.random.nextGaussian() * 0.05;
                         this.addExplosionParticle(coords, rOffsetX / length, rOffsetY / length, rOffsetZ / length, colors, fadeColors, trail, flicker, particleManager);
                         if (offsetX == -radius || offsetX == radius || offsetY == -radius || offsetY == radius) continue;
                         offsetZ += radius * 2 - 1;
@@ -91,16 +91,21 @@ public class FireworkEffects {
     }
 
     public static class BurstFireworkEffect extends BaseFireworkEffect {
+        private final int numberOfExplosions;
+
+        public BurstFireworkEffect(int numberOfExplosions) {
+            this.numberOfExplosions = numberOfExplosions;
+        }
 
         @Override
         public void explode(Vec3d velocity, Vec3d coords, int[] colors, int[] fadeColors, boolean trail, boolean flicker, ParticleManager particleManager) {
-            double offsetX = this.random.nextGaussian() * 0.05;
+                  double offsetX = this.random.nextGaussian() * 0.05;
             double offsetY = this.random.nextGaussian() * 0.05;
-            for (int i = 0; i < 70; ++i) {
+            for (int i = 0; i < numberOfExplosions; ++i) {
                 double x = velocity.x * 0.5 + this.random.nextGaussian() * 0.15 + offsetX;
-                double y = velocity.z * 0.5 + this.random.nextGaussian() * 0.15 + offsetY;
-                double z = velocity.y * 0.5 + this.random.nextDouble() * 0.5;
-                this.addExplosionParticle(coords, x, z, y, colors, fadeColors, trail, flicker, particleManager);
+                double z = velocity.z * 0.5 + this.random.nextGaussian() * 0.15 + offsetY;
+                double y = velocity.y * 0.5 + this.random.nextDouble() * 0.5;
+                this.addExplosionParticle(coords, x, y, z, colors, fadeColors, trail, flicker, particleManager);
             }
         }
     }
