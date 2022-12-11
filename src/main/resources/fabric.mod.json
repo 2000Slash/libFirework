@@ -21,5 +21,11 @@
     "main": [
       "com.github.libfirework.LibFirework"
     ]
+  },
+  "depends": {
+    "fabricloader": ">=0.14.11",
+    "fabric-api": "*",
+    "minecraft": "~1.19",
+    "java": ">=17"
   }
 }
