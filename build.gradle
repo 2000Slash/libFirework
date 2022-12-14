@@ -10,12 +10,12 @@ repositories {
 
 dependencies {
     minecraft "org.mojang:minecraft:1.19.3"
-    mappings "net.fabricmc:yarn:1.19.3+build.2"
+    mappings "net.fabricmc:yarn:1.19.3+build.3"
     //mappings loom.officialMojangMappings()
     modImplementation "net.fabricmc:fabric-loader:0.14.11"
-    modImplementation "net.fabricmc.fabric-api:fabric-api:0.68.1+1.19.3"
+    modImplementation "net.fabricmc.fabric-api:fabric-api:0.69.1+1.19.3"
 
-    modImplementation "com.terraformersmc:modmenu:5.0.1"
+    modImplementation "com.terraformersmc:modmenu:5.0.2"
 
     include 'com.github.blackears:svgSalamander:v1.1.3'
     modImplementation 'com.github.blackears:svgSalamander:v1.1.3'
@@ -25,10 +25,17 @@ dependencies {
 
 loom {
     accessWidenerPath = file("src/main/resources/libfirework.accesswidener")
+
     runs {
         testClient {
             inherit client
             configName = "Test Minecraft Client"
+            source = sourceSets.test
+        }
+
+        testServer {
+            inherit server
+            configName = "Test Minecraft Server"
             source = sourceSets.test
         }
     }
