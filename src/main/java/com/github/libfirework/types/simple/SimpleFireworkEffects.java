@@ -7,6 +7,7 @@ import com.kitfox.svg.SVGCache;
 import com.kitfox.svg.SVGDiagram;
 import net.minecraft.client.particle.FireworksSparkParticle;
 import net.minecraft.client.particle.ParticleManager;
+import net.minecraft.particle.ParticleEffect;
 import net.minecraft.particle.ParticleTypes;
 import net.minecraft.util.Util;
 import net.minecraft.util.math.MathHelper;
@@ -27,19 +28,38 @@ public class SimpleFireworkEffects {
 
     public abstract static class BaseSimpleFireworkEffect implements SimpleFireworkEffect {
         protected final Random random = Random.create();
+        private ParticleEffect mainParticle = ParticleTypes.FIREWORK;
+
+        public BaseSimpleFireworkEffect(ParticleEffect particleEffect) {
+            this.mainParticle = particleEffect;
+        }
+
+        public BaseSimpleFireworkEffect() { }
+
+        public void setMainParticle(ParticleEffect particleEffect) {
+            this.mainParticle = particleEffect;
+        }
 
         protected void addExplosionParticle(Vec3d coords, double particleX, double particleY, double particleZ, int[] colors, int[] fadeColors, boolean trail, boolean flicker, ParticleManager particleManager) {
-            FireworksSparkParticle.Explosion explosion = (FireworksSparkParticle.Explosion)particleManager.addParticle(ParticleTypes.FIREWORK, coords.x, coords.y, coords.z, particleX, particleY, particleZ);
-            ParticleAccessor accessor = (ParticleAccessor) explosion;
-            explosion.setTrail(trail);
-            explosion.setFlicker(flicker);
-            accessor.invokeSetAlpha(0.99F);
-            int j = random.nextInt(colors.length);
-            explosion.setColor(colors[j]);
-            if (fadeColors.length > 0) {
-                explosion.setTargetColor(Util.getRandom(fadeColors, random));
+            addParticle(mainParticle, coords, particleX, particleY, particleZ, colors, fadeColors, trail, flicker, particleManager);
+        }
+
+        protected void addParticle(ParticleEffect particleEffect, Vec3d coords, double particleX, double particleY, double particleZ, int[] colors, int[] fadeColors, boolean trail, boolean flicker, ParticleManager particleManager) {
+            var particle = particleManager.addParticle(particleEffect, coords.x, coords.y, coords.z, particleX, particleY, particleZ);
+            if (particle instanceof FireworksSparkParticle.Explosion explosion) {
+                ParticleAccessor accessor = (ParticleAccessor) explosion;
+                explosion.setTrail(trail);
+                explosion.setFlicker(flicker);
+                accessor.invokeSetAlpha(0.99F);
+                int j = random.nextInt(colors.length);
+                explosion.setColor(colors[j]);
+                if (fadeColors.length > 0) {
+                    explosion.setTargetColor(Util.getRandom(fadeColors, random));
+                }
             }
         }
+
+
     }
 
     public static class LinesSimpleFireworkEffect extends BaseSimpleFireworkEffect {

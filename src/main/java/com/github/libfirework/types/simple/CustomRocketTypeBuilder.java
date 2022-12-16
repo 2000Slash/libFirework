@@ -4,6 +4,8 @@ import com.github.libfirework.types.CustomRocketType;
 import com.github.libfirework.types.ICustomRocketType;
 import net.minecraft.client.particle.ParticleManager;
 import net.minecraft.item.Item;
+import net.minecraft.particle.ParticleEffect;
+import net.minecraft.particle.ParticleTypes;
 import net.minecraft.util.Identifier;
 import net.minecraft.util.math.Vec3d;
 
@@ -34,6 +36,7 @@ public class CustomRocketTypeBuilder {
     private Identifier identifier;
     private List<Item> items;
     private final List<SimpleFireworkEffect> simpleFireworkEffects = new LinkedList<>();
+    private ParticleEffect mainParticleEffect = ParticleTypes.FIREWORK;
 
 
     public CustomRocketTypeBuilder(Identifier identifier, Item... items) {
@@ -108,6 +111,11 @@ public class CustomRocketTypeBuilder {
         return applyDrawAction(drawAction);
     }
 
+    public CustomRocketTypeBuilder setMainParticle(ParticleEffect particleEffect) {
+        this.mainParticleEffect = particleEffect;
+        return this;
+    }
+
     public List<Item> getItems() {
         return items;
     }
@@ -117,6 +125,7 @@ public class CustomRocketTypeBuilder {
     }
 
     public CustomRocketType build() {
+        simpleFireworkEffects.forEach(simpleFireworkEffects -> simpleFireworkEffects.setMainParticle(mainParticleEffect));
         return new SimpleRocketType(this);
     }
 
