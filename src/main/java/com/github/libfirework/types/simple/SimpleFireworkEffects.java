@@ -21,11 +21,11 @@ import java.net.URI;
 import java.util.ArrayList;
 import java.util.List;
 
-public class FireworkEffects {
+public class SimpleFireworkEffects {
 
-    private FireworkEffects() { }
+    private SimpleFireworkEffects() { }
 
-    public abstract static class BaseFireworkEffect implements com.github.libfirework.types.simple.FireworkEffect {
+    public abstract static class BaseSimpleFireworkEffect implements SimpleFireworkEffect {
         protected final Random random = Random.create();
 
         protected void addExplosionParticle(Vec3d coords, double particleX, double particleY, double particleZ, int[] colors, int[] fadeColors, boolean trail, boolean flicker, ParticleManager particleManager) {
@@ -42,12 +42,12 @@ public class FireworkEffects {
         }
     }
 
-    public static class LinesFireworkEffect extends BaseFireworkEffect {
+    public static class LinesSimpleFireworkEffect extends BaseSimpleFireworkEffect {
         private final Random random = Random.create();
         private final double[][] coords;
         private final int numberOfExplosions;
 
-        public LinesFireworkEffect(double[][] coords, int numberOfExplosions) {
+        public LinesSimpleFireworkEffect(double[][] coords, int numberOfExplosions) {
             this.coords = coords;
             this.numberOfExplosions = numberOfExplosions;
         }
@@ -75,11 +75,11 @@ public class FireworkEffects {
         }
     }
 
-    public static class BallFireworkEffect extends BaseFireworkEffect {
+    public static class BallSimpleFireworkEffect extends BaseSimpleFireworkEffect {
         private final int radius;
         private final double spread;
 
-        public BallFireworkEffect(int radius, double spread) {
+        public BallSimpleFireworkEffect(int radius, double spread) {
             this.radius = radius;
             this.spread = spread;
         }
@@ -102,16 +102,16 @@ public class FireworkEffects {
         }
     }
 
-    public static class BurstFireworkEffect extends BaseFireworkEffect {
+    public static class BurstSimpleFireworkEffect extends BaseSimpleFireworkEffect {
         private final int numberOfExplosions;
 
-        public BurstFireworkEffect(int numberOfExplosions) {
+        public BurstSimpleFireworkEffect(int numberOfExplosions) {
             this.numberOfExplosions = numberOfExplosions;
         }
 
         @Override
         public void explode(Vec3d velocity, Vec3d coords, int[] colors, int[] fadeColors, boolean trail, boolean flicker, ParticleManager particleManager) {
-                  double offsetX = this.random.nextGaussian() * 0.05;
+            double offsetX = this.random.nextGaussian() * 0.05;
             double offsetY = this.random.nextGaussian() * 0.05;
             for (int i = 0; i < numberOfExplosions; ++i) {
                 double x = velocity.x * 0.5 + this.random.nextGaussian() * 0.15 + offsetX;
@@ -121,12 +121,11 @@ public class FireworkEffects {
             }
         }
     }
-
-    public static class SVGFireworkEffect extends BaseFireworkEffect {
+    public static class SVGSimpleFireworkEffect extends BaseSimpleFireworkEffect {
         private List<Double[]> points;
         private float[] origin;
 
-        public SVGFireworkEffect(InputStream inputStream, String name, float pointDistance, double scale, float[] origin) {
+        public SVGSimpleFireworkEffect(InputStream inputStream, String name, float pointDistance, double scale, float[] origin) {
             this.origin = origin;
             try {
                 points = new ArrayList<>();

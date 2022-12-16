@@ -14,16 +14,16 @@ import java.util.List;
 public class CustomRocketTypeBuilder {
 
     private static class SimpleRocketType extends ICustomRocketType {
-        private final List<FireworkEffect> fireworkEffects;
+        private final List<SimpleFireworkEffect> simpleFireworkEffects;
 
         private SimpleRocketType(CustomRocketTypeBuilder builder) {
             super(builder.getIdentifier(), builder.getItems());
-            this.fireworkEffects = builder.getDrawActions();
+            this.simpleFireworkEffects = builder.getDrawActions();
         }
 
         @Override
         public void explode(Vec3d velocity, Vec3d coords, int[] colors, int[] fadeColors, boolean trail, boolean flicker, ParticleManager particleManager) {
-            for (var drawAction : fireworkEffects) {
+            for (var drawAction : simpleFireworkEffects) {
                 drawAction.explode(velocity, coords, colors, fadeColors, trail, flicker, particleManager);
             }
         }
@@ -33,7 +33,7 @@ public class CustomRocketTypeBuilder {
 
     private Identifier identifier;
     private List<Item> items;
-    private final List<FireworkEffect> fireworkEffects = new LinkedList<>();
+    private final List<SimpleFireworkEffect> simpleFireworkEffects = new LinkedList<>();
 
 
     public CustomRocketTypeBuilder(Identifier identifier, Item... items) {
@@ -60,8 +60,8 @@ public class CustomRocketTypeBuilder {
         return this;
     }
 
-    public CustomRocketTypeBuilder applyDrawAction(FireworkEffect fireworkEffect) {
-        this.fireworkEffects.add(fireworkEffect);
+    public CustomRocketTypeBuilder applyDrawAction(SimpleFireworkEffect simpleFireworkEffect) {
+        this.simpleFireworkEffects.add(simpleFireworkEffect);
         return this;
     }
 
@@ -71,7 +71,7 @@ public class CustomRocketTypeBuilder {
      * @param numberOfIntersects The number of particles in each line
      */
     public CustomRocketTypeBuilder drawLines(double[][] coords, int numberOfIntersects) {
-        var drawAction = new FireworkEffects.LinesFireworkEffect(coords, numberOfIntersects);
+        var drawAction = new SimpleFireworkEffects.LinesSimpleFireworkEffect(coords, numberOfIntersects);
         return applyDrawAction(drawAction);
     }
 
@@ -82,7 +82,7 @@ public class CustomRocketTypeBuilder {
      * @param spread The multiplier of the radius
      */
     public CustomRocketTypeBuilder fillBall(int radius, double spread) {
-        var drawAction = new FireworkEffects.BallFireworkEffect(radius, spread);
+        var drawAction = new SimpleFireworkEffects.BallSimpleFireworkEffect(radius, spread);
         return applyDrawAction(drawAction);
     }
 
@@ -91,7 +91,7 @@ public class CustomRocketTypeBuilder {
      * @param numberOfExplosions The amount of particles
      */
     public CustomRocketTypeBuilder burst(int numberOfExplosions) {
-        var drawAction = new FireworkEffects.BurstFireworkEffect(numberOfExplosions);
+        var drawAction = new SimpleFireworkEffects.BurstSimpleFireworkEffect(numberOfExplosions);
         return applyDrawAction(drawAction);
     }
 
@@ -104,7 +104,7 @@ public class CustomRocketTypeBuilder {
      * @param origin The origin offset of the svg. This should be experimented with for each svg. Origin is in the form [x_offset, y_offset]
      */
     public CustomRocketTypeBuilder explodeSvg(InputStream inputStream, String name, float pointDistance, double scale, float[] origin) {
-        var drawAction = new FireworkEffects.SVGFireworkEffect(inputStream, name, pointDistance, scale, origin);
+        var drawAction = new SimpleFireworkEffects.SVGSimpleFireworkEffect(inputStream, name, pointDistance, scale, origin);
         return applyDrawAction(drawAction);
     }
 
@@ -120,7 +120,7 @@ public class CustomRocketTypeBuilder {
         return new SimpleRocketType(this);
     }
 
-    public List<FireworkEffect> getDrawActions() {
-        return fireworkEffects;
+    public List<SimpleFireworkEffect> getDrawActions() {
+        return simpleFireworkEffects;
     }
 }
