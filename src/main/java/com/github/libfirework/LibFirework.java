@@ -2,12 +2,10 @@ package com.github.libfirework;
 
 import com.github.libfirework.types.CustomRocketType;
 import com.github.libfirework.types.MinecraftRocketTypes;
-import com.github.libfirework.types.simple.CustomRocketTypeBuilder;
 import com.google.common.collect.Maps;
 import net.fabricmc.api.ModInitializer;
 import net.minecraft.item.Item;
 import net.minecraft.item.ItemConvertible;
-import net.minecraft.item.Items;
 import net.minecraft.recipe.Ingredient;
 import net.minecraft.util.Pair;
 import net.minecraft.util.Util;

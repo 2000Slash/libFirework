@@ -1,7 +1,5 @@
 package com.github.libfirework.types;
 
-import com.github.libfirework.types.CustomRocketType;
-import com.github.libfirework.types.ICustomRocketType;
 import net.minecraft.client.particle.FireworksSparkParticle;
 import net.minecraft.client.particle.ParticleManager;
 import net.minecraft.item.Item;

@@ -15,3 +15,4 @@ public class TestLibfirework implements ModInitializer {
         LibFirework.registerCustomRocketType(new CustomRocketTypeBuilder(new Identifier("libfirework", "amogus"), Items.REDSTONE).explodeSvg(TestLibfirework.class.getClassLoader().getResourceAsStream("amogus.svg"), "amogus.svg", 5.f, 1/500.f, new float[]{-0.8f, 1.f}).build());
     }
 }
+ 
